@@ -1,62 +1,120 @@
 #include <iostream>
+#include "CDA.h"
 
 template <class myType>
 
-class CircularDynamicArray {
-    private:
-    int capacity;
-    int size;
-    int front;
-    int back;
-    public:
+CircularDynamicArray<myType>::CircularDynamicArray() {
+    capacityNum = 2;
+    sizeNum = 0;
+    front = -1;
+    back = -1;
+    array = new myType[capacityNum];
+}
 
-    myType* array;
+template <class myType>
 
-    bool resize();
+bool CircularDynamicArray<myType>::resize() {
+    capacityNum *= 2;
+    return true;
+}
 
-    CircularDynamicArray() {
-        array = new myType();
-        capacity = 2;
-        size = 0;
-        front = 0;
-        back = 0;
-    }
+template <class myType>
 
-    CircularDynamicArray(int s) {
-        array = new myType();
-        capacity = s;
-        size = s;
-        front = 0;
-        back = 0;
-    }
+CircularDynamicArray<myType>::CircularDynamicArray(int s) {
+    capacityNum = s;
+    sizeNum = s;
+    front = -1;
+    back = -1;
+    array = new myType[capacityNum];
+}
 
-    ~CircularDynamicArray();
+template <class myType>
 
-    myType& operator[](int i);
+CircularDynamicArray<myType>::~CircularDynamicArray() {
+    delete [] array;
+    array = nullptr;
+}
 
-    void addEnd(myType v);
+template <class myType>
 
-    void addFront(myType v);
+myType& CircularDynamicArray<myType>::operator[](int i) {
 
-    void delEnd();
+}
 
-    void delFront();
+template <class myType>
 
-    int length();
+void CircularDynamicArray<myType>::addEnd(myType v) {
 
-    int capacity();
+}
 
-    void clear();
+template <class myType>
 
-    mytype QuickSelect(int k);
+void CircularDynamicArray<myType>::addFront(myType v) {
 
-    myType WCSelect(int k);
+}
 
-    void stableSort();
+template <class myType>
 
-    int linearSearch(myType e);
+void CircularDynamicArray<myType>::delEnd() {
 
-    int binSearch(myType e);
+}
 
-    void reverse();
-};
+template <class myType>
+
+void CircularDynamicArray<myType>::delFront() {
+
+}
+
+template <class myType>
+
+int CircularDynamicArray<myType>::length() {
+    return sizeNum;
+}
+
+template <class myType>
+
+int CircularDynamicArray<myType>::capacity() {
+    return capacityNum;
+}
+
+template <class myType>
+
+void CircularDynamicArray<myType>::clear() {
+
+}
+
+template <class myType>
+
+myType CircularDynamicArray<myType>::QuickSelect(int k) {
+
+}
+
+template <class myType>
+
+myType CircularDynamicArray<myType>::WCSelect(int k) {
+
+}
+
+template <class myType>
+
+void CircularDynamicArray<myType>::stableSort() {
+
+}
+
+template <class myType>
+
+int CircularDynamicArray<myType>::linearSearch(myType e) {
+    return 0;
+}
+
+template <class myType>
+
+int CircularDynamicArray<myType>::binSearch(myType e) {
+    return 0;
+}
+
+template <class myType>
+
+void CircularDynamicArray<myType>::reverse() {
+
+}

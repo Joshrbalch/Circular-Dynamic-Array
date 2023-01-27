@@ -1,16 +1,15 @@
 #include <iostream>
-
 template <class myType>
 
 class CircularDynamicArray {
     private:
-    int capacity;
-    int length;
+    int capacityNum;
+    int sizeNum;
     int front;
     int back;
-    public:
-
     myType* array;
+
+    public:
 
     bool resize();
 
@@ -36,7 +35,7 @@ class CircularDynamicArray {
 
     void clear();
 
-    mytype QuickSelect(int k);
+    myType QuickSelect(int k);
 
     myType WCSelect(int k);
 
