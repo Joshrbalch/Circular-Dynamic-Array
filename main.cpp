@@ -11,11 +11,13 @@ int main() {
     myArray.addEnd(17);
     myArray.addEnd(19);
     myArray.addFront(21);
-    myArray.addFront(26);
-    myArray.addEnd(81);
-    myArray.addFront(78);
+    // myArray.addFront(26);
+    // myArray.addEnd(81);
+    // myArray.addFront(78);
 
     myArray.print();
+
+
 
     return 0;
 }

@@ -63,12 +63,7 @@ class CircularDynamicArray {
     }
 
     myType& operator[](int i) {
-
-    }
-
-    bool resize() {
-        capacityNum *= 2;
-        return true;
+        return array[i];
     }
 
     void addEnd(myType v) {
@@ -106,11 +101,37 @@ class CircularDynamicArray {
     }
 
     void delEnd() {
+        if(front == back) {
+            empty = true;
+            sizeNum--;
+            return;
+        }
 
+        back = (back - 1 + capacityNum) % capacityNum;
+        sizeNum--;
+
+        if(sizeNum <= (capacityNum / 4)) {
+            decreaseSize();
+        }
     }
 
     void delFront() {
+        if(empty == 1) {
+            abort();
+        }
 
+        if(front == back) {
+            empty = true;
+            sizeNum--;
+            return;
+        }
+
+        front = (front + 1) % capacityNum;
+        sizeNum--;
+
+        if(sizeNum <= (capacityNum / 4)) {
+            decreaseSize();
+        }
     }
 
     int length() {
@@ -138,7 +159,13 @@ class CircularDynamicArray {
     }
 
     int linearSearch(myType e) {
-        return 0;
+        for(int i = 0; i < capacityNum; i++) {
+            if(array[i] == e) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     int binSearch(myType e) {
@@ -195,6 +222,30 @@ class CircularDynamicArray {
         // for(int i = 0; i < capacityNum; i++) {
         //     std::cout << temp[i] << std::endl;
         // }
+
+        front = 0;
+        back = sizeNum - 1;
+
+        delete[] array;
+
+        array = temp;
+    }
+
+    void decreaseSize() {
+        capacityNum /= 2;
+
+        myType* temp = new myType[capacityNum];
+
+        int i = front;
+        int j = 0;
+
+        while (i != back) {
+            temp[j] = array[i];
+            i = (i + 1) % sizeNum;
+            j++;
+        }
+        
+        temp[j] = array[i];
 
         front = 0;
         back = sizeNum - 1;
