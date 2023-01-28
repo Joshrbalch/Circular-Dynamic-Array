@@ -72,34 +72,20 @@ class CircularDynamicArray {
     }
 
     void addEnd(myType v) {
+        if(sizeNum == capacityNum) {
+            increaseSize();
+        }
+
         if(empty == 1) {
             empty = 0;
             array[front] = v;
             sizeNum++;
+            return;
         }
 
-        else {
-            if(back == capacityNum) {
-                if(sizeNum == capacityNum) {
-                    increaseSize();
-                    back++;
-                    array[back] = v;
-                    sizeNum++;
-                }
-
-                else {
-                    back = 0;
-                    array[back] = v;
-                    sizeNum++;
-                }
-            }
-
-            else {
-                back += 1;
-                array[back] = v;
-                sizeNum++;
-            }
-        }
+        back = (back + 1) % capacityNum;;
+        array[back] = v;
+        sizeNum++;
     }
 
     void addFront(myType v) {

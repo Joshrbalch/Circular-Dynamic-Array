@@ -7,9 +7,13 @@ int main() {
 
     CircularDynamicArray<int> myArray;
 
-    for(int i = 0; i < 100; i++) {
-        myArray.addEnd(i);
-    }
+    myArray.addFront(11);
+    myArray.addEnd(17);
+    myArray.addEnd(19);
+    myArray.addFront(21);
+    myArray.addFront(26);
+    myArray.addEnd(81);
+    myArray.addFront(78);
 
     myArray.print();
 
