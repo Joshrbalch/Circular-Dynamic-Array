@@ -1,120 +1,189 @@
 #include <iostream>
-#include "CDA.h"
-
+// #include "CDA.h"
 template <class myType>
 
-CircularDynamicArray<myType>::CircularDynamicArray() {
+class CircularDynamicArray {
+    private:
+    int capacityNum;
+    int sizeNum;
+    int front;
+    int back;
+    bool empty;
+    myType* array;
+
+    public:
+
+    CircularDynamicArray() {
     capacityNum = 2;
     sizeNum = 0;
-    front = -1;
-    back = -1;
+    front = 0;
+    back = 0;
+    empty = 1;
     array = new myType[capacityNum];
-}
+    }
 
-template <class myType>
+    bool resize() {
+        capacityNum *= 2;
+        return true;
+    }
 
-bool CircularDynamicArray<myType>::resize() {
-    capacityNum *= 2;
-    return true;
-}
+    CircularDynamicArray(int s) {
+        capacityNum = s;
+        sizeNum = s;
+        front = 0;
+        back = 1;
+        empty = 1;
+        array = new myType[capacityNum];
+    }
 
-template <class myType>
+    ~CircularDynamicArray() {
+        delete [] array;
+        array = nullptr;
+    }
 
-CircularDynamicArray<myType>::CircularDynamicArray(int s) {
-    capacityNum = s;
-    sizeNum = s;
-    front = -1;
-    back = -1;
-    array = new myType[capacityNum];
-}
+    myType& operator[](int i) {
 
-template <class myType>
+    }
 
-CircularDynamicArray<myType>::~CircularDynamicArray() {
-    delete [] array;
-    array = nullptr;
-}
+    void addEnd(myType v) {
+        if(empty == 1) {
+            empty = 0;
+            array[front] = v;
+            sizeNum++;
+        }
 
-template <class myType>
+        else {
+            if(back == capacityNum) {
+                if(sizeNum == capacityNum) {
+                    increaseSize();
+                    back++;
+                    array[back] = v;
+                    sizeNum++;
+                }
 
-myType& CircularDynamicArray<myType>::operator[](int i) {
+                else {
+                    back = 0;
+                    array[back] = v;
+                    sizeNum++;
+                }
+            }
 
-}
+            else {
+                back += 1;
+                array[back] = v;
+                sizeNum++;
+            }
+        }
+    }
 
-template <class myType>
+    void addFront(myType v) {
+        if(sizeNum == capacityNum) {
+            increaseSize();
+        }
+        
+        if(empty == 1) {
+            empty = 0;
+            array[front] = v;
+            sizeNum++;
+        }
 
-void CircularDynamicArray<myType>::addEnd(myType v) {
+        else {
+            if(front == 0) {
+                front = capacityNum - 1;
+                array[front] = v;
+            }
 
-}
+            else {
+                front -= 1;
+                array[front] = v;
+            }
 
-template <class myType>
+            sizeNum++;
+        }
+    }
 
-void CircularDynamicArray<myType>::addFront(myType v) {
+    void delEnd() {
 
-}
+    }
 
-template <class myType>
+    void delFront() {
 
-void CircularDynamicArray<myType>::delEnd() {
+    }
 
-}
+    int length() {
+        return sizeNum;
+    }
 
-template <class myType>
+    int capacity() {
+        return capacityNum;
+    }
 
-void CircularDynamicArray<myType>::delFront() {
+    void clear() {
 
-}
+    }
 
-template <class myType>
+    myType QuickSelect(int k) {
 
-int CircularDynamicArray<myType>::length() {
-    return sizeNum;
-}
+    }
 
-template <class myType>
+    myType WCSelect(int k) {
 
-int CircularDynamicArray<myType>::capacity() {
-    return capacityNum;
-}
+    }
 
-template <class myType>
+    void stableSort() {
 
-void CircularDynamicArray<myType>::clear() {
+    }
 
-}
+    int linearSearch(myType e) {
+        return 0;
+    }
 
-template <class myType>
+    int binSearch(myType e) {
+        return 0;
+    }
 
-myType CircularDynamicArray<myType>::QuickSelect(int k) {
+    void reverse() {
 
-}
+    }
 
-template <class myType>
+    bool isEmpty() {
+        if(empty == 1) {
+            return true;
+        }
 
-myType CircularDynamicArray<myType>::WCSelect(int k) {
+        else {
+            return false;
+        }
+    }
 
-}
+    void print() {
+        int i = front;
 
-template <class myType>
+        while(i != back) {
+            if(i == capacityNum) {
+                i = 0;
+            }
 
-void CircularDynamicArray<myType>::stableSort() {
+            std::cout << array[i] << std::endl;
+            i++;
+        }
+    }
 
-}
+    void increaseSize() {
+        capacityNum *= 2;
 
-template <class myType>
+        myType* temp = new myType[capacityNum];
 
-int CircularDynamicArray<myType>::linearSearch(myType e) {
-    return 0;
-}
+        for(int i = 0, j = front; i < sizeNum; i++) {
+            temp[i] = array[j];
+            j = (j + 1) % sizeNum;
+        }
 
-template <class myType>
+        front = 0;
+        back = sizeNum - 1;
 
-int CircularDynamicArray<myType>::binSearch(myType e) {
-    return 0;
-}
+        delete[] array;
 
-template <class myType>
-
-void CircularDynamicArray<myType>::reverse() {
-
-}
+        array = temp;
+    }
+};

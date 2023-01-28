@@ -1,13 +1,17 @@
 #include <iostream>
-#include "CDA.h"
+#include "CDA.cpp"
 
 using namespace std;
 
 int main() {
 
-    CircularDynamicArray<char> myArray;
+    CircularDynamicArray<int> myArray;
 
-    cout << "Capacity: " << myArray.capacity();
+    myArray.addFront(1);
+    myArray.addFront(2);
+    myArray.addFront(3);
+
+    myArray.print();
 
     return 0;
 }
