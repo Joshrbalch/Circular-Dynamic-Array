@@ -22,11 +22,6 @@ class CircularDynamicArray {
     array = new myType[capacityNum];
     }
 
-    bool resize() {
-        capacityNum *= 2;
-        return true;
-    }
-
     CircularDynamicArray(int s) {
         capacityNum = s;
         sizeNum = s;
@@ -41,8 +36,39 @@ class CircularDynamicArray {
         array = nullptr;
     }
 
+    CircularDynamicArray(const CircularDynamicArray& other) {
+        std::cout << "COPY" << std::endl;
+        int arrayCap = other.capacityNum;
+        array = new myType[capacityNum];
+
+        for(int i = 0, j = front; i < sizeNum; i++) {
+            array[i] = other.array[j];
+            j = (j + 1) % capacityNum;
+        }
+        
+        capacityNum = other.capacityNum;
+        sizeNum = other.sizeNum;
+        front = other.front;
+        back = other.back;
+        empty = other.empty;
+    }
+
+    CircularDynamicArray& operator=(const CircularDynamicArray& other) {
+        std::cout << "EQUALS" << std::endl;
+        if(&other != this) {
+            CircularDynamicArray temp(other);
+            std::swap(array, temp.array);
+            std::swap(capacityNum, temp.capacityNum);
+        }
+    }
+
     myType& operator[](int i) {
 
+    }
+
+    bool resize() {
+        capacityNum *= 2;
+        return true;
     }
 
     void addEnd(myType v) {
@@ -85,21 +111,12 @@ class CircularDynamicArray {
             empty = 0;
             array[front] = v;
             sizeNum++;
+            return;
         }
 
-        else {
-            if(front == 0) {
-                front = capacityNum - 1;
-                array[front] = v;
-            }
-
-            else {
-                front -= 1;
-                array[front] = v;
-            }
-
-            sizeNum++;
-        }
+        front = (front - 1 + capacityNum) % capacityNum;
+        array[front] = v;
+        sizeNum++;
     }
 
     void delEnd() {
@@ -157,15 +174,17 @@ class CircularDynamicArray {
     }
 
     void print() {
-        int i = front;
+        std::cout << "NUMBER OF ELEMENTS: " << sizeNum << std::endl;
+        int j = front;
 
-        while(i != back) {
-            if(i == capacityNum) {
-                i = 0;
+        for(int i = 0; i < sizeNum; i++) {
+            if(j == capacityNum) {
+                j = 0;
             }
 
-            std::cout << array[i] << std::endl;
-            i++;
+            std::cout << array[j] << std::endl;
+
+            j++;
         }
     }
 
@@ -174,10 +193,22 @@ class CircularDynamicArray {
 
         myType* temp = new myType[capacityNum];
 
-        for(int i = 0, j = front; i < sizeNum; i++) {
-            temp[i] = array[j];
-            j = (j + 1) % sizeNum;
+        int i = front;
+        int j = 0;
+
+        while (i != back) {
+            temp[j] = array[i];
+            i = (i + 1) % sizeNum;
+            j++;
         }
+        
+        temp[j] = array[i];
+
+        // std::cout << "TEMP:" << std::endl;
+
+        // for(int i = 0; i < capacityNum; i++) {
+        //     std::cout << temp[i] << std::endl;
+        // }
 
         front = 0;
         back = sizeNum - 1;
