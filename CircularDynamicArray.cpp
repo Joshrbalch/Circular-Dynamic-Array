@@ -213,6 +213,7 @@ class CircularDynamicArray {
     }
 
     myType& operator[](int i) {
+        int index;
         if(empty == true) {
             empty = false;
         }
@@ -221,7 +222,15 @@ class CircularDynamicArray {
             back = i;
         }
 
-        return array[i];
+        if(reversed == 0) {
+            index = (front + i) % capacityNum;
+        }
+
+        else {
+            index = (back - i) % capacityNum;
+        }
+        
+        return array[index];
     }
 
     void addEnd(myType v) {
