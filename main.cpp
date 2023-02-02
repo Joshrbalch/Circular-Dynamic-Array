@@ -5,20 +5,48 @@ using namespace std;
 
 int main() {
 
-    CircularDynamicArray<int> myArray;
+    CircularDynamicArray<float> C(10);
+	for (int i=0; i< C.length();i++) C[i] = i;
+	C.print();
+	// C => "0 1 2 3 4 5 6 7 8 9"
+	C.delFront();
+	C.print();
+	// C => "1 2 3 4 5 6 7 8 9"
+	C.delEnd();
+	C.print();
+	// C => "1 2 3 4 5 6 7 8"
+	C.addEnd(100.0);
+	C.print();
+	// C => "1 2 3 4 5 6 7 8 100"
+    C.delFront();
+	C.addEnd(200.0);
+	// C => "2 3 4 5 6 7 8 100 200"	
 
-    myArray.addFront(1);
-    myArray.addEnd(37);
-    myArray.addFront(4);
-    myArray.addEnd(89);
+	C.addEnd(300.0);
+	C.addEnd(400.0);
+	// C => "2 3 4 5 6 7 8 100 200 300 400"	
 
-    myArray.print();
+    C.print();
+
+    C.reverse();
+    C.print();
+
+    C.delFront(); C.delFront();C.delEnd();
+
+    C.print();
+
+    C.reverse();
+
+    C.print();
+
+
+
 
     // myArray.stableSort();
 
     // myArray.print();
 
-    cout << "   " << myArray.QuickSelect(5) << endl;
+    // cout << "   " << myArray.QuickSelect(5) << endl;
 
     return 0;
 }

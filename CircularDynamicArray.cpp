@@ -10,6 +10,8 @@ class CircularDynamicArray {
     int back;
     bool empty;
     myType* array;
+    bool reversed;
+    bool reverseFlag = false;
 
     void increaseSize() {
         capacityNum *= 2;
@@ -162,6 +164,7 @@ class CircularDynamicArray {
     front = 0;
     back = 0;
     empty = 1;
+    reversed = false;
     array = new myType[capacityNum];
     }
 
@@ -171,6 +174,7 @@ class CircularDynamicArray {
         front = 0;
         back = 1;
         empty = 1;
+        reversed = false;
         array = new myType[capacityNum];
     }
 
@@ -194,6 +198,7 @@ class CircularDynamicArray {
         front = other.front;
         back = other.back;
         empty = other.empty;
+        reversed = other.reversed;
     }
 
     CircularDynamicArray& operator=(const CircularDynamicArray& other) {
@@ -208,6 +213,14 @@ class CircularDynamicArray {
     }
 
     myType& operator[](int i) {
+        if(empty == true) {
+            empty = false;
+        }
+
+        if(i > back) {
+            back = i;
+        }
+
         return array[i];
     }
 
@@ -223,9 +236,16 @@ class CircularDynamicArray {
             return;
         }
 
-        back = (back + 1) % capacityNum;;
+        if(reversed == 1 && reverseFlag == 0) {
+            reverseFlag = 1;
+            addFront(v);
+            return;
+        }
+
+        back = (back + 1) % capacityNum;
         array[back] = v;
         sizeNum++;
+        reverseFlag = 0;
     }
 
     void addFront(myType v) {
@@ -240,9 +260,16 @@ class CircularDynamicArray {
             return;
         }
 
+        if(reversed == 1 && reverseFlag == 0) {
+            reverseFlag = 1;
+            addEnd(v);
+            return;
+        }
+
         front = (front - 1 + capacityNum) % capacityNum;
         array[front] = v;
         sizeNum++;
+        reverseFlag = 0;
     }
 
     void delEnd() {
@@ -252,12 +279,20 @@ class CircularDynamicArray {
             return;
         }
 
+        if(reversed == 1 && reverseFlag == 0) {
+            reverseFlag = 1;
+            delFront();
+            return;
+        }
+
         back = (back - 1 + capacityNum) % capacityNum;
         sizeNum--;
 
         if(sizeNum <= (capacityNum / 4)) {
             decreaseSize();
         }
+
+        reverseFlag = 0;
     }
 
     void delFront() {
@@ -266,17 +301,31 @@ class CircularDynamicArray {
         }
 
         if(front == back) {
+            // std::cout << "SECOND" << std::endl;
             empty = true;
             sizeNum--;
             return;
         }
 
-        front = (front + 1) % capacityNum;
+        if(reversed == 1 && reverseFlag == 0) {
+            reverseFlag = 1;
+            delEnd();
+            return;
+        }
+
+        front++;
+
+        if(front == capacityNum) {
+            front = 0;
+        }
+
         sizeNum--;
 
         if(sizeNum <= (capacityNum / 4)) {
             decreaseSize();
         }
+
+        reverseFlag = 0;
     }
 
     int length() {
@@ -329,10 +378,6 @@ class CircularDynamicArray {
         return -1;
     }
 
-    myType WCSelect(int k) {
-        return -1;
-    }
-
     void stableSort() {
         mergeSort(array, 0, sizeNum - 1);
         front = 0;
@@ -354,7 +399,7 @@ class CircularDynamicArray {
     }
 
     void reverse() {
-
+        reversed = !reversed;
     }
 
     bool isEmpty() {
@@ -368,17 +413,34 @@ class CircularDynamicArray {
     }
 
     void print() {
-        std::cout << "NUMBER OF ELEMENTS: " << sizeNum << std::endl;
-        int j = front;
+        // std::cout << "NUMBER OF ELEMENTS: " << sizeNum << std::endl;
 
-        for(int i = 0; i < sizeNum; i++) {
-            if(j == capacityNum) {
-                j = 0;
+        if(reversed == 0) {
+            int j = front;
+            for(int i = 0; i < sizeNum; i++) {
+                if(j == capacityNum) {
+                    j = 0;
+                }
+
+                std::cout << array[j] << " ";
+
+                j++;
             }
-
-            std::cout << array[j] << std::endl;
-
-            j++;
         }
+
+        else {
+            int j = back;
+            for(int i = 0; i < sizeNum; i++) {
+                if(j == 0) {
+                    j = capacityNum - 1;
+                }
+
+                std::cout << array[j] << " ";
+
+                j--;
+            }
+        }
+
+        std::cout << std::endl;
     }
 };
