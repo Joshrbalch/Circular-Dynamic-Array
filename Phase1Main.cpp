@@ -15,6 +15,7 @@ int main(){
 	for (int i=0; i< C.length();i++) cout << C[i] << " ";  cout << endl;
 	// C => "0 1 2 3 4 5 6 7 8 9"
 	C.delFront();
+	// cout << "TEST" << endl;
 	for (int i=0; i< C.length();i++) cout << C[i] << " ";  cout << endl;
 	// C => "1 2 3 4 5 6 7 8 9"
 	C.delEnd();
