@@ -184,29 +184,42 @@ class CircularDynamicArray {
     }
 
     CircularDynamicArray(const CircularDynamicArray& other) {
-        std::cout << "COPY" << std::endl;
-        int arrayCap = other.capacityNum;
-        array = new myType[capacityNum];
-
-        for(int i = 0, j = front; i < sizeNum; i++) {
-            array[i] = other.array[j];
-            j = (j + 1) % capacityNum;
-        }
-        
+        // std::cout << "COPY" << std::endl;
         capacityNum = other.capacityNum;
         sizeNum = other.sizeNum;
         front = other.front;
         back = other.back;
         empty = other.empty;
         reversed = other.reversed;
+
+        array = new myType[sizeNum];
+        int j = front;
+
+        for(int i = 0; i < sizeNum; i++) {
+            array[j] = other.array[j];
+            j = (j + 1) % capacityNum;
+        }
     }
 
     CircularDynamicArray& operator=(const CircularDynamicArray& other) {
-        std::cout << "EQUALS" << std::endl;
-        if(&other != this) {
-            CircularDynamicArray temp(other);
-            std::swap(array, temp.array);
-            std::swap(capacityNum, temp.capacityNum);
+        // std::cout << "EQUALS" << std::endl;
+        if(this != &other) {
+            delete[] array;
+            capacityNum = other.capacityNum;
+            sizeNum = other.sizeNum;
+            front = other.front;
+            back = other.back;
+            empty = other.empty;
+            reversed = other.reversed;
+
+            array = new myType[capacityNum];
+            int j = front;
+            for(int i = front; i < sizeNum; i++) {
+                array[j] = other.array[j];
+                j = (j + 1) % capacityNum;
+            }
+
+            return *this;
         }
 
         return *this;
@@ -229,7 +242,7 @@ class CircularDynamicArray {
         else {
             index = (back - i) % capacityNum;
         }
-        
+
         return array[index];
     }
 
@@ -404,7 +417,27 @@ class CircularDynamicArray {
     }
 
     int binSearch(myType e) {
-        return 0;
+        return binSearchRec(array, 0, capacityNum - 1, e);
+    }
+
+    int binSearchRec(myType array[], int l, int r, int e) {
+        if(r >= l) {
+            int mid = l + (r - l) / 2;
+
+            if(array[mid] == e) {
+                return mid;
+            }
+
+            if(array[mid] > e) {
+                return binSearchRec(array, l, mid - 1, e);
+            }
+
+            else {
+                return binSearchRec(array, mid + 1, r, e);
+            }
+        }
+
+        return -1;
     }
 
     void reverse() {
