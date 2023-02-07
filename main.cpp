@@ -11,6 +11,8 @@ void foo(CircularDynamicArray<int> x) {
 }
 
 int main() {
+
+
     CircularDynamicArray<int> A,B;
 	for(int i=0; i<10;i++) A.addEnd(i);
 	B = A;
@@ -27,6 +29,7 @@ int main() {
 	// A => "10 0 1 2 3 4 5 6 7 8 9 15 19"
     A.print();
 	cout << "Select is " << A.linearSearch(5) << endl;
+	A.print();
 	// A => "10 0 1 2 3 4 5 6 7 8 9 15 19" Search => 6
 	cout << "Select is " << A.QuickSelect(3) << endl;
     // Select => 2	
@@ -38,6 +41,7 @@ int main() {
 	A.addEnd(11); A.addFront(1); A.addFront(2); A.addFront(3);
 	cout << "capacity is " << A.capacity() << endl;
 	// A => "3 2 1 0 1 2 3 4 5 6 7 8 9 10 15 19 11"	  capacity => 32
+	A.print();
 	A.delFront(); A.delFront();
 	// A => "1 0 1 2 3 4 5 6 7 8 9 10 15 19 11"	  capacity => 32
 

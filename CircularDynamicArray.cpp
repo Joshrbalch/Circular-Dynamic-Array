@@ -67,35 +67,31 @@ class CircularDynamicArray {
         array = temp;
     }
 
-    int partition(myType arr[], int l, int r) {
-        myType x = arr[r], i = l;
-        myType temp{};
+    int partition(myType arr[], int l, int r, int pivotIndex) {
+        myType pivotValue = array[pivotIndex];
 
-        for (int j = l; j <= r - 1; j++) {
-            if (arr[j] <= x) {
-                temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-                i++;
+        std::swap(array[pivotIndex], array[r]);
+
+        int storeIndex = l;
+
+        for(int i = l; i <= r; i++) {
+            if(array[i] < pivotValue) {
+                std::swap(array[i], array[storeIndex]);
+                storeIndex++;
             }
         }
 
-        temp = arr[i];
-        arr[i] = arr[r];
-        arr[r] = temp;
-        return i;
+        std::swap(array[storeIndex], array[r]);
+        return storeIndex;
     }
 
-    void mergeSort(myType array[], int const begin, int const end)
-    {
-        if (begin >= end) {
-            return; // Returns recursively
+    void mergeSort(myType array[], int l, int r) {
+        if(l < r) {
+            int m = (l + r) / 2;
+            mergeSort(array, l, m);
+            mergeSort(array, m + 1, r);
+            merge(array, l, m, r);
         }
-
-        auto mid = begin + (end - begin) / 2;
-        mergeSort(array, begin, mid);
-        mergeSort(array, mid + 1, end);
-        merge(array, begin, mid, end);
     }
 
     void merge(myType array[], int const left, int const mid, int const right) {
@@ -108,11 +104,11 @@ class CircularDynamicArray {
     
         // Copy data to temp arrays leftArray[] and rightArray[]
         for (auto i = 0; i < subArrayOne; i++) {
-            leftArray[i] = array[left + i];
+            leftArray[i] = array[(left + i) % capacityNum];
         }
 
         for (auto j = 0; j < subArrayTwo; j++) {
-            rightArray[j] = array[mid + 1 + j];
+            rightArray[j] = array[(mid + 1 + j) % capacityNum];
         }
     
         auto indexOfSubArrayOne = 0, // Initial index of first sub-array
@@ -367,41 +363,34 @@ class CircularDynamicArray {
     }
 
     myType QuickSelect(int k) {
-        return kthSmallest(array, 0, sizeNum - 1, k);
+        int n = sizeNum;
+        return kthSmallest(array, 0, n - 1, (k - 1 + n) % n);
     }
 
     myType kthSmallest(myType arr[], int l, int r, int k) {
-        // If k is smaller than number of 
-        // elements in array
-        if (k > 0 && k <= r - l + 1) {
-    
-            // Partition the array around last 
-            // element and get position of pivot 
-            // element in sorted array
-            int index = partition(arr, l, r);
-    
-            // If position is same as k
-            if (index - l == k - 1) {
-                return arr[index];
-            }
-
-            // If position is more, recur 
-            // for left subarray
-            if (index - l > k - 1) { 
-                return kthSmallest(arr, l, index - 1, k);
-            }
-
-            // Else recur for right subarray
-            return kthSmallest(arr, index + 1, r, k - index + l - 1);
+        if(l == r) {
+            return array[l];
         }
-    
-        // If k is more than number of 
-        // elements in array
-        return -1;
+
+        int pivotIndex = l + (rand() % (r - l + 1));
+        pivotIndex = partition(array, l, r, pivotIndex);
+
+        if(k == pivotIndex) {
+            return array[k];
+        }
+
+        else if(k < pivotIndex) {
+            return kthSmallest(array, l, pivotIndex - 1, k);
+        }
+
+        else {
+            return kthSmallest(array, pivotIndex + 1, r, k);
+        }
     }
 
     void stableSort() {
-        mergeSort(array, 0, sizeNum - 1);
+        int n = sizeNum;
+        mergeSort(array, 0, n - 1);
         front = 0;
         back = length() - 1;
     }
