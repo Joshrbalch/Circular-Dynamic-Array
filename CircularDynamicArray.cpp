@@ -407,10 +407,14 @@ class CircularDynamicArray {
     }
 
     int linearSearch(myType e) {
+        int j = front;
         for(int i = 0; i < capacityNum; i++) {
-            if(array[i] == e) {
+            
+            if(array[j] == e) {
                 return i;
             }
+
+            j = (j + 1) % capacityNum;
         }
 
         return -1;
