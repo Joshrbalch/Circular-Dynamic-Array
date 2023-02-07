@@ -1,5 +1,6 @@
+// This program was made by Joshua Balch at the University of Alabama
+
 #include <iostream>
-// #include "CDA.h"
 template <class myType>
 
 class CircularDynamicArray {
@@ -28,13 +29,6 @@ class CircularDynamicArray {
         }
         
         temp[j] = array[i];
-
-        // std::cout << "TEMP:" << std::endl;
-
-        // for(int i = 0; i < capacityNum; i++) {
-        //     std::cout << temp[i] << std::endl;
-        // }
-
         front = 0;
         back = sizeNum - 1;
 
@@ -180,7 +174,6 @@ class CircularDynamicArray {
     }
 
     CircularDynamicArray(const CircularDynamicArray& other) {
-        // std::cout << "COPY" << std::endl;
         capacityNum = other.capacityNum;
         sizeNum = other.sizeNum;
         front = other.front;
@@ -198,7 +191,6 @@ class CircularDynamicArray {
     }
 
     CircularDynamicArray& operator=(const CircularDynamicArray& other) {
-        // std::cout << "EQUALS" << std::endl;
         if(this != &other) {
             delete[] array;
             capacityNum = other.capacityNum;
@@ -319,7 +311,6 @@ class CircularDynamicArray {
         }
 
         if(front == back) {
-            // std::cout << "SECOND" << std::endl;
             empty = true;
             sizeNum--;
             return;
@@ -448,8 +439,6 @@ class CircularDynamicArray {
     }
 
     void print() {
-        // std::cout << "NUMBER OF ELEMENTS: " << sizeNum << std::endl;
-
         if(reversed == 0) {
             int j = front;
             for(int i = 0; i < sizeNum; i++) {
