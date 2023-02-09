@@ -46,7 +46,4 @@ int main() {
     for (int i=0; i< C.length();i++) cout << C[i] << " ";  cout << endl;
     C.addFront(23.0);
     for (int i=0; i< C.length();i++) cout << C[i] << " ";  cout << endl;
-
-    cout << C.getBack() << endl;
-    cout << C.length() << endl;
 }

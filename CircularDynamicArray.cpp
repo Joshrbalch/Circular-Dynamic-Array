@@ -224,7 +224,7 @@ class CircularDynamicArray {
         }
 
         if(reversed == 0) {
-            index = (front + i) % capacityNum;
+            index = (front + i + capacityNum) % capacityNum;
         }
 
         else {
