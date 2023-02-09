@@ -12,7 +12,7 @@ class CircularDynamicArray {
     bool empty;
     myType* array;
     bool reversed;
-    bool reverseFlag = false;
+    bool reverseFlag = 0;
 
     void increaseSize() {
         capacityNum *= 2;
@@ -97,15 +97,15 @@ class CircularDynamicArray {
         myType *leftArray = new myType[subArrayOne], *rightArray = new myType[subArrayTwo];
     
         // Copy data to temp arrays leftArray[] and rightArray[]
-        for (auto i = 0; i < subArrayOne; i++) {
+        for (int i = 0; i < subArrayOne; i++) {
             leftArray[i] = array[(left + i) % capacityNum];
         }
 
-        for (auto j = 0; j < subArrayTwo; j++) {
+        for (int j = 0; j < subArrayTwo; j++) {
             rightArray[j] = array[(mid + 1 + j) % capacityNum];
         }
     
-        auto indexOfSubArrayOne = 0, // Initial index of first sub-array
+        int indexOfSubArrayOne = 0, // Initial index of first sub-array
             indexOfSubArrayTwo
             = 0; // Initial index of second sub-array
 
