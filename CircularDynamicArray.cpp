@@ -228,7 +228,7 @@ class CircularDynamicArray {
         }
 
         else {
-            index = (back - i) % capacityNum;
+            index = (back - i + capacityNum) % capacityNum;
         }
 
         return array[index];
@@ -466,5 +466,9 @@ class CircularDynamicArray {
         }
 
         std::cout << std::endl;
+    }
+
+    int getBack() {
+        return back;
     }
 };
