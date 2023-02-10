@@ -215,6 +215,7 @@ class CircularDynamicArray {
 
     myType& operator[](int i) {
         int index = i;
+        empty = 0;
 
         if(reversed) {
             index = (back - index + capacityNum) % capacityNum;
@@ -343,6 +344,7 @@ class CircularDynamicArray {
             delEnd();
             return;
         }
+
 
         front++;
 
