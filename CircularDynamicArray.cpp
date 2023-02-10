@@ -1,6 +1,7 @@
 // This program was made by Joshua Balch at the University of Alabama
 
 #include <iostream>
+#include <cstdlib>
 template <class myType>
 
 class CircularDynamicArray {
@@ -385,11 +386,10 @@ class CircularDynamicArray {
     }
 
     myType kthSmallest(myType arr[], int l, int r, int k) {
+        srand(l);
         if(l == r) {
             return array[l];
         }
-
-        rand();
 
         int pivotIndex = l + (rand() % (r - l + 1));
         pivotIndex = partition(array, l, r, pivotIndex);
