@@ -217,7 +217,7 @@ class CircularDynamicArray {
         int index = i;
 
         if(reversed) {
-            index = (back - 1 - index + capacityNum) % capacityNum;
+            index = (back - index + capacityNum) % capacityNum;
         }
 
         else {

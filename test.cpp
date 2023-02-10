@@ -45,5 +45,11 @@ int main() {
     C.reverse();
     for (int i=0; i< C.length();i++) cout << C[i] << " ";  cout << endl;
     C.addFront(23.0);
+    C.addEnd(24.0);
+    C.addFront(32.0);
+    C.addFront(44);
+    C.reverse();
+
+    cout << C.binSearch(24) << endl;
     for (int i=0; i< C.length();i++) cout << C[i] << " ";  cout << endl;
 }
