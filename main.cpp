@@ -44,14 +44,17 @@ int main() {
 
 
     for (int i=0; i< C.length();i++) cout << C[i] << " ";  cout << endl;
+
+    cout << C.binSearch(16.0) << endl;
     C.reverse();
+    cout << C.binSearch(-2.0) << endl;
     for (int i=0; i< C.length();i++) cout << C[i] << " ";  cout << endl;
     // C => "400 300 200 100 8 7 6 5 4 3 2"
     // C.reverse();
     // for (int i=0; i< C.length();i++) cout << C[i] << " ";  cout << endl;
-    // // C => "400 300 200 100 8 7 6 5 4 3 2"
-    C.addFront(23.0);
-    for (int i=0; i< C.length();i++) cout << C[i] << " ";  cout << endl;
+    // C => "400 300 200 100 8 7 6 5 4 3 2"
+    // C.addFront(23.0);
+    // for (int i=0; i< C.length();i++) cout << C[i] << " ";  cout << endl;
     //C.addFront(999.0);
     // for (int i=0; i< C.length();i++) cout << C[i] << " ";  cout << endl;
     // C.delFront(); C.delFront();C.delEnd();
