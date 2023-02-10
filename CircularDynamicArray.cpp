@@ -12,7 +12,7 @@ class CircularDynamicArray {
     bool empty;
     myType* array;
     bool reversed;
-    bool reverseFlag = 0;
+    bool reverseFlag;
 
     void increaseSize() {
         capacityNum *= 2;
@@ -155,6 +155,7 @@ class CircularDynamicArray {
     back = 0;
     empty = 1;
     reversed = false;
+    reverseFlag = 0;
     array = new myType[capacityNum];
     }
 
@@ -165,12 +166,13 @@ class CircularDynamicArray {
         back = 1;
         empty = 1;
         reversed = false;
+        reverseFlag = 0;
         array = new myType[capacityNum];
     }
 
     ~CircularDynamicArray() {
         delete [] array;
-        array = nullptr;
+        // array = nullptr;
     }
 
     CircularDynamicArray(const CircularDynamicArray& other) {
@@ -386,6 +388,8 @@ class CircularDynamicArray {
         if(l == r) {
             return array[l];
         }
+
+        rand();
 
         int pivotIndex = l + (rand() % (r - l + 1));
         pivotIndex = partition(array, l, r, pivotIndex);
