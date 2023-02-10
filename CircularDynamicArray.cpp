@@ -214,24 +214,46 @@ class CircularDynamicArray {
     }
 
     myType& operator[](int i) {
-        int index;
-        if(empty == true) {
-            empty = false;
-        }
+        int index = i;
 
-        if(i > back) {
-            back = i;
-        }
-
-        if(reversed == 0) {
-            index = (front + i + capacityNum) % capacityNum;
+        if(reversed) {
+            index = (back - 1 - index + capacityNum) % capacityNum;
         }
 
         else {
-            index = (back - i + capacityNum) % capacityNum;
+            index = (front + index) % capacityNum;
+        }
+
+        if(index == back + 1) {
+            ++back %= capacityNum;
+
+            if(sizeNum < capacityNum) {
+                sizeNum++;
+            }
+
+            // else {
+            //     front = (front + 1) % capacityNum;
+            // }
         }
 
         return array[index];
+        // if(empty == true) {
+        //     empty = false;
+        // }
+
+        // if(i > back) {
+        //     back = i;
+        // }
+
+        // if(reversed == 0) {
+        //     index = (front + i + capacityNum) % capacityNum;
+        // }
+
+        // else {
+        //     index = (back - i + capacityNum) % capacityNum;
+        // }
+
+        // return array[index];
     }
 
     void addEnd(myType v) {
